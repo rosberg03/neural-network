@@ -1,0 +1,11 @@
+## MacOS stuff
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## other
+.vscode
+/node_modules
+npm-debug.log
+.prettierrc
+.prettierignore

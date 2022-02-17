@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+$font-primary: 'Rubik', sans-serif;
+
+// RESPONSIVE BREAKPOINTS
+$bp-largest: 75em;   // 1200px
+$bp-large: 62.5em;   // 1000px
+$bp-medium: 50em;    // 800px;
+$bp-small: 37.5em;   // 600px;
+
+// COLORS
+$color-white: #fff;
+$color-darkblue: hsl(235, 46%, 20%);
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+::selection {
+    background-color: $color-white;
+    color: $color-darkblue;
+}
+
+html {
+    font-size: 62.5%; // 1 rem = 10px
+}
+
+body {
+    box-sizing: border-box;
+    font-family: $font-primary;
+    background-color: $color-darkblue;
+    color: $color-white;
+    font-weight: 300;
+    font-size: 1.6rem;
+}
