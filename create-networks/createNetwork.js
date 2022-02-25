@@ -21,11 +21,13 @@ function sigprime(z) {
     return sigmoid(z) * (1 - sigmoid(z));
 }
 
+// DL = (AL - Y) o sigprime(Z)
 function BP1(AL, Y, ZL) {
     const sigprimedZ = ZL.map(sigprime);
     return dotMultiply(subtract(AL, Y), sigprimedZ); 
 }
 
+// Dl = (W^T * D) o sigprime(Z)
 function BP2(W, D, Z) {
     // Denna kodrad formatterar endast matriserna rätt i JavaScript
     const matrixW = Array.isArray(W[0]) ? W : [W]; 
@@ -36,10 +38,12 @@ function BP2(W, D, Z) {
     return dotMultiply(multiply(transposedW, D), sigprimedZ);
 }
 
+// dC/dB = D
 function BP3(D) {
     return D;
 }
 
+// dC/dW = A^T * D
 function BP4(A, D) {
     const transposedA = transpose([A]);
     return multiply(transposedA, [D]);
