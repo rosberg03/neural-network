@@ -1,5 +1,5 @@
 'use strict'
 
-import Network from './network.js';
+import Network from './readNetwork.js';
 
 const net = new Network();
