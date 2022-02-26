@@ -265,4 +265,4 @@ net.createNewNetwork(networkSizes)
 
 net.SGD(trainingSet, 30, 10, 3.0, testSet);
 
-net.save('network2.json');
+net.save('networkData1.json');
