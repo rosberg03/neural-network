@@ -2,10 +2,10 @@
 $font-primary: 'Rubik', sans-serif;
 
 // RESPONSIVE BREAKPOINTS
-$bp-largest: 75em;   // 1200px
-$bp-large: 62.5em;   // 1000px
-$bp-medium: 50em;    // 800px;
-$bp-small: 37.5em;   // 600px;
+$bp-largest: 75em; // 1200px
+$bp-large: 62.5em; // 1000px
+$bp-medium: 50em; // 800px;
+$bp-small: 37.5em; // 600px;
 
 // COLORS
 $color-white: #fff;
@@ -31,8 +31,7 @@ html {
 body {
     box-sizing: border-box;
     font-family: $font-primary;
-    background-color: $color-darkblue;
-    color: $color-white;
+    color: $color-darkblue;
     font-weight: 300;
     font-size: 1.6rem;
 }

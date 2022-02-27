@@ -1,5 +1,13 @@
-'use strict'
+'use strict';
 
 import Network from './readNetwork.js';
+import Canvas from './canvas.js';
 
-const net = new Network();
+const main = () => {
+    const canvas = new Canvas();
+    canvas.init();
+};
+
+window.addEventListener('load', () => {
+    main();
+});

@@ -16,7 +16,12 @@ html {
 body {
   box-sizing: border-box;
   font-family: "Rubik", sans-serif;
-  background-color: #1c1f4a;
-  color: #fff;
+  color: #1c1f4a;
   font-weight: 300;
   font-size: 1.6rem; }
+
+.canvas {
+  outline: 3px solid black;
+  position: relative;
+  top: 5rem;
+  left: 5rem; }
