@@ -30,6 +30,7 @@ const main = () => {
     document.addEventListener('keyup', event => {
         if (event.code === 'Space') {
             canvas.resetGrid();
+            stats.reset();
         }
     });
 };
