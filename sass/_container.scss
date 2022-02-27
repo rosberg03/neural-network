@@ -1,0 +1,23 @@
+.main-container {
+    display: flex;
+    width: 80vw;
+    min-height: 50rem;
+
+    @media screen and (max-width: $bp-largest) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    &__canvas {
+        flex-basis: 40%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: pink;
+    }
+
+    &__stats {
+        flex: 1;
+        background-color: orangered;
+    }
+}

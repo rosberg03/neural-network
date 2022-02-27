@@ -15,16 +15,36 @@ html {
 
 body {
   box-sizing: border-box;
+  min-height: 100vh;
   font-family: "Rubik", sans-serif;
-  color: #1c1f4a;
   font-weight: 300;
-  font-size: 1.6rem; }
+  font-size: 1.6rem;
+  display: grid;
+  place-items: center; }
+
+.main-container {
+  display: flex;
+  width: 80vw;
+  min-height: 50rem; }
+  @media screen and (max-width: 75em) {
+    .main-container {
+      flex-direction: column;
+      gap: 2rem; } }
+  .main-container__canvas {
+    flex-basis: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: pink; }
+  .main-container__stats {
+    flex: 1;
+    background-color: orangered; }
 
 .canvas {
-  outline: 3px solid black;
-  position: relative;
-  top: 5rem;
-  left: 5rem; }
+  border: 3px solid black; }
+
+.stats {
+  background-color: orangered; }
 
 .digit {
   position: absolute;

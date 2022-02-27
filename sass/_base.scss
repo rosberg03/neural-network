@@ -30,8 +30,10 @@ html {
 
 body {
     box-sizing: border-box;
+    min-height: 100vh;
     font-family: $font-primary;
-    color: $color-darkblue;
     font-weight: 300;
     font-size: 1.6rem;
+    display: grid;
+    place-items: center;
 }
