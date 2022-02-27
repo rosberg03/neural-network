@@ -1,43 +1,22 @@
-'use strict';
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 class Canvas {
-    init() {
-        this.canvas = document.getElementById('canvas');
-        this.context = this.canvas.getContext('2d');
+    constructor(cellSize = 16) {
+        this.elem = document.getElementById('canvas');
+        this.context = this.elem.getContext('2d');
 
         this.gridSize = 28; // The grid will consist of 28x28 cells
-        this.cellSize = 16; // Each cell will be 16x16 px
+        this.cellSize = cellSize; // Each cell will be 16x16 px
 
-        this.rect = this.canvas.getBoundingClientRect();
+        this.rect = this.elem.getBoundingClientRect();
         this.totalSize = String(this.gridSize * this.cellSize);
 
-        this.canvas.height = this.totalSize;
-        this.canvas.width = this.totalSize;
+        this.elem.height = this.totalSize;
+        this.elem.width = this.totalSize;
 
-        // Fill 28x28 array with the value 1, 1 = white, 0 = black
-        this.grid = new Array(this.gridSize)
-            .fill(1)
-            .map(() => new Array(this.gridSize).fill(1));
-
-        this.painting = false;
-
-        this.handleEvents();
-
-        this.context.rect(240, 192, 16, 16);
-    }
-    handleEvents() {
-        this.canvas.addEventListener('mousedown', () => {
-            this.painting = true;
-        });
-        window.addEventListener('mouseup', () => {
-            this.painting = false;
-        });
-        this.canvas.addEventListener('mousemove', e => {
-            if (!this.painting) return;
-            this.paint(e);
-        });
+        // Fill 28x28 1d array with the value 1, 1 = white, 0 = black
+        this.grid = new Array(this.gridSize ** 2).fill(1)
     }
     paint(e) {
         const x = clamp(e.clientX - this.rect.left, 0, this.totalSize);
@@ -67,8 +46,8 @@ class Canvas {
         this.drawCell(closetCellX, closetCellY, 0);
     }
     drawCell(gridX, gridY, grayScaleValue) {
-        if (this.grid[gridY][gridX] === 1) {
-            // Calculatio RGB color value
+        if (this.grid[gridY * this.gridSize + gridX] === 1) {
+
             const RGB = Math.floor(grayScaleValue * 255);
             this.context.fillStyle = `rgb(${RGB}, ${RGB}, ${RGB})`;
 
@@ -83,7 +62,7 @@ class Canvas {
 
             this.context.fill();
 
-            this.grid[gridY][gridX] = grayScaleValue;
+            this.grid[gridY * this.gridSize + gridX] = grayScaleValue;
         }
     }
 }

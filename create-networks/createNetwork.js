@@ -261,7 +261,7 @@ const net = new Network();
 
 const networkSizes = [784, 30, 10];
 
-net.createNewNetwork(networkSizes)
+net.createNewNetwork(networkSizes);
 
 net.SGD(trainingSet, 30, 10, 3.0, testSet);
 
