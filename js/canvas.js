@@ -1,5 +1,7 @@
 'use strict';
 
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
 class Canvas {
     init() {
         this.canvas = document.getElementById('canvas');
@@ -9,11 +11,10 @@ class Canvas {
         this.cellSize = 16; // Each cell will be 16x16 px
 
         this.rect = this.canvas.getBoundingClientRect();
+        this.totalSize = String(this.gridSize * this.cellSize);
 
-        const totalSize = String(this.gridSize * this.cellSize);
-
-        this.canvas.height = totalSize;
-        this.canvas.width = totalSize;
+        this.canvas.height = this.totalSize;
+        this.canvas.width = this.totalSize;
 
         // Fill 28x28 array with the value 1, 1 = white, 0 = black
         this.grid = new Array(this.gridSize)
@@ -39,20 +40,37 @@ class Canvas {
         });
     }
     paint(e) {
-        const x = e.clientX - this.rect.left;
-        const y = e.clientY - this.rect.top;
+        const x = clamp(e.clientX - this.rect.left, 0, this.totalSize);
+        const y = clamp(e.clientY - this.rect.top, 0, this.totalSize);
 
         const gridX = Math.floor(x / this.cellSize);
         const gridY = Math.floor(y / this.cellSize);
 
         // Draw the cell that was clicked black
         this.drawCell(gridX, gridY, 0);
+
+        // Draw surrounding cells
+        const distanceToClosestX = x % this.cellSize - this.cellSize / 2;
+        const distanceToClosestY = y % this.cellSize - this.cellSize / 2;
+
+        /*
+        const grayScaleClosestX = Math.abs(distanceToClosestX * 2 / this.cellSize);
+        const grayScaleClosestY = Math.abs(distanceToClosestY * 2 / this.cellSize);
+        const grayScaleClosestXY = Math.sqrt(grayScaleClosestX ** 2 + grayScaleClosestY ** 2);
+        */
+
+        const closetCellX = clamp(gridX + Math.sign(distanceToClosestX), 0, this.gridSize - 1);
+        const closetCellY = clamp(gridY + Math.sign(distanceToClosestY), 0, this.gridSize - 1);
+
+        this.drawCell(closetCellX, gridY, 0);
+        this.drawCell(gridX, closetCellY, 0);
+        this.drawCell(closetCellX, closetCellY, 0);
     }
     drawCell(gridX, gridY, grayScaleValue) {
         if (this.grid[gridY][gridX] === 1) {
             // Calculatio RGB color value
             const RGB = Math.floor(grayScaleValue * 255);
-            this.context.strokeStyle = `rgb(${RGB}, ${RGB}, ${RGB})`;
+            this.context.fillStyle = `rgb(${RGB}, ${RGB}, ${RGB})`;
 
             this.context.beginPath();
 
