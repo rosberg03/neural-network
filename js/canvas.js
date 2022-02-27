@@ -15,8 +15,17 @@ class Canvas {
         this.elem.height = this.totalSize;
         this.elem.width = this.totalSize;
 
+        this.reset();
+    }
+    reset() {
         // Fill 28x28 1d array with the value 1, 1 = white, 0 = black
-        this.grid = new Array(this.gridSize ** 2).fill(1)
+        this.grid = new Array(this.gridSize ** 2).fill(0);
+
+        // Fill entire canvas black
+        this.context.fillStyle = 'black';
+        this.context.beginPath();
+        this.context.rect(0, 0, this.totalSize, this.totalSize);
+        this.context.fill();
     }
     paint(e) {
         const x = clamp(e.clientX - this.rect.left, 0, this.totalSize);
@@ -26,44 +35,54 @@ class Canvas {
         const gridY = Math.floor(y / this.cellSize);
 
         // Draw the cell that was clicked black
-        this.drawCell(gridX, gridY, 0);
 
         // Draw surrounding cells
-        const distanceToClosestX = x % this.cellSize - this.cellSize / 2;
-        const distanceToClosestY = y % this.cellSize - this.cellSize / 2;
+        const closestX = Math.sign(x % this.cellSize - this.cellSize / 2);
+        const closestY = Math.sign(y % this.cellSize - this.cellSize / 2);
 
-        /*
-        const grayScaleClosestX = Math.abs(distanceToClosestX * 2 / this.cellSize);
-        const grayScaleClosestY = Math.abs(distanceToClosestY * 2 / this.cellSize);
-        const grayScaleClosestXY = Math.sqrt(grayScaleClosestX ** 2 + grayScaleClosestY ** 2);
-        */
 
-        const closetCellX = clamp(gridX + Math.sign(distanceToClosestX), 0, this.gridSize - 1);
-        const closetCellY = clamp(gridY + Math.sign(distanceToClosestY), 0, this.gridSize - 1);
+        this.drawCell(gridX + 2, gridY, 0.1);
+        this.drawCell(gridX, gridY + 2, 0.1);
+        this.drawCell(gridX - 2, gridY, 0.1);
+        this.drawCell(gridX, gridY - 2, 0.1);
 
-        this.drawCell(closetCellX, gridY, 0);
-        this.drawCell(gridX, closetCellY, 0);
-        this.drawCell(closetCellX, closetCellY, 0);
+        this.drawCell(gridX + 1, gridY + 1, 0.35);
+        this.drawCell(gridX + 1, gridY - 1, 0.35);
+        this.drawCell(gridX - 1, gridY + 1, 0.35);
+        this.drawCell(gridX - 1, gridY - 1, 0.35);
+        this.drawCell(gridX + closestX, gridY + closestY, 0.75);
+
+        this.drawCell(gridX + 1, gridY, 0.75);
+        this.drawCell(gridX, gridY + 1, 0.75);
+        this.drawCell(gridX - 1, gridY, 0.75);
+        this.drawCell(gridX, gridY - 1, 0.75);
+        
+        this.drawCell(gridX, gridY, 1);
+        this.drawCell(gridX + closestX, gridY, 1);
+        this.drawCell(gridX, gridY + closestY, 1);
+
     }
     drawCell(gridX, gridY, grayScaleValue) {
-        if (this.grid[gridY * this.gridSize + gridX] === 1) {
+        gridX = clamp(gridX, 0, this.gridSize - 1);
+        gridY = clamp(gridY, 0, this.gridSize - 1);
 
+        if (this.grid[gridY * this.gridSize + gridX] < grayScaleValue) {
             const RGB = Math.floor(grayScaleValue * 255);
             this.context.fillStyle = `rgb(${RGB}, ${RGB}, ${RGB})`;
-
+    
             this.context.beginPath();
-
+    
             this.context.rect(
                 gridX * this.cellSize,
                 gridY * this.cellSize,
                 this.cellSize,
                 this.cellSize
             );
-
+    
             this.context.fill();
-
+    
             this.grid[gridY * this.gridSize + gridX] = grayScaleValue;
-        }
+        }   
     }
 }
 

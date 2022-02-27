@@ -257,6 +257,13 @@ class Network {
     }
 }
 
+const digit = testSet[32].input;
+const digitJSON = JSON.stringify(digit);
+fs.writeFile('digit.json', digitJSON, 'utf8', ()=>{});
+
+
+
+/*
 const net = new Network();
 
 const networkSizes = [784, 30, 10];
@@ -265,4 +272,4 @@ net.createNewNetwork(networkSizes);
 
 net.SGD(trainingSet, 30, 10, 3.0, testSet);
 
-net.save('networkData1.json');
+net.save('networkData1.json');*/
