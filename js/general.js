@@ -5,7 +5,7 @@ import Stats from './stats.js';
 
 const main = () => {
     const canvas = new Canvas();
-    const network = new Network('../create-networks/networkData1.json');
+    const network = new Network('create-networks/networkData1.json');
     const stats = new Stats();
 
     
